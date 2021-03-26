@@ -20,12 +20,9 @@ def harrison_ford
   # It's possible to join based on active record relations defined in models.
   #
   # Find the id and title of all movies in which Harrison Ford
-  # appeared but not as a lead actor
+  # appeared but noq
 
-  Movie
-    .select(:id, :title)
-    .joins(:actors)
-    .where(actors: { name: "Harrison Ford"} )
+  Movie.select(:id, :title).joins(:actors).where(actors: { name: "Harrison Ford"}).where.not(castings: { ord: 1})
 end
 
 def biggest_cast
@@ -42,6 +39,9 @@ def biggest_cast
   #
   # Find the id and title of the 3 movies with the
   # largest casts (i.e most actors)
+
+  Movie.joins(:actors).select(:id, :title).group('movies.id').order('COUNT(actors.id) DESC').limit(3)
+
 
 end
 
