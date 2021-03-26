@@ -47,9 +47,7 @@ end
 
 def directed_by_one_of(them)
   # Consider the following:
-  #
   # Movie.where('yr IN (?)', years)
-  #
   # We can use IN to test if an element is present in an array.
   #
   # ActiveRecord gives us an even better way to write this:
@@ -57,7 +55,14 @@ def directed_by_one_of(them)
   # Movie.where(yr: years)
   #
   # Find the id and title of all the movies directed by one of 'them'.
+  names = Movie.select(:director_id).joins(:actors).where('name IN (?)', them)
 
+  Movie.joins(:actors).select(:id, :title).where()
+
+  
+  # SELECT :id
+  # FROM actors
+  # WHERE name IN (them)
 end
 
 def movie_names_before_1940
